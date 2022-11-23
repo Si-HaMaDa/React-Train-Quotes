@@ -18,6 +18,7 @@ const QuoteForm = (props) => {
         const enteredText = textInputRef.current.value;
 
         // optional: Could validate here
+        if (!enteredAuthor || !enteredText) return;
 
         props.onAddQuote({ author: enteredAuthor, text: enteredText });
     }
@@ -52,7 +53,13 @@ const QuoteForm = (props) => {
 
                     <div className={classes.control}>
                         <label htmlFor="author">Author</label>
-                        <input type="text" id="author" ref={authorInputRef} />
+                        <input
+                            type="text"
+                            id="author"
+                            ref={authorInputRef}
+                            name="name"
+                            required
+                        />
                     </div>
                     <div className={classes.control}>
                         <label htmlFor="text">Text</label>
@@ -60,6 +67,8 @@ const QuoteForm = (props) => {
                             id="text"
                             rows="5"
                             ref={textInputRef}
+                            name="quote"
+                            required
                         ></textarea>
                     </div>
                     {props.errorMsg && (
