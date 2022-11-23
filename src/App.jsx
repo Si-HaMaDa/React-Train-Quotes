@@ -1,34 +1,33 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { Route, Switch, Redirect } from "react-router-dom";
+
+import AllQuotes from "./pages/AllQuotes";
+import QuoteDetail from "./pages/QuoteDetail";
+import NewQuote from "./pages/NewQuote";
+import NotFound from "./pages/NotFound";
+import Layout from "./components/layout/Layout";
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    return (
+        <Layout>
+            <Switch>
+                <Route path="/" exact>
+                    <Redirect to="/quotes" />
+                </Route>
+                <Route path="/quotes" exact>
+                    <AllQuotes />
+                </Route>
+                <Route path="/quotes/:quoteId">
+                    <QuoteDetail />
+                </Route>
+                <Route path="/new-quote">
+                    <NewQuote />
+                </Route>
+                <Route path="*">
+                    <NotFound />
+                </Route>
+            </Switch>
+        </Layout>
+    );
 }
 
-export default App
+export default App;
